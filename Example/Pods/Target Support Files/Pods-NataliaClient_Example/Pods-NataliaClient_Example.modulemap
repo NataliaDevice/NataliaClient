@@ -1,0 +1,6 @@
+framework module Pods_NataliaClient_Example {
+  umbrella header "Pods-NataliaClient_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module NataliaClient {
+  umbrella header "NataliaClient-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,14 @@
+PODS:
+  - NataliaClient (0.1.0)
+
+DEPENDENCIES:
+  - NataliaClient (from `../`)
+
+EXTERNAL SOURCES:
+  NataliaClient:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NataliaClient: 112a3c2c5ba9e52e18a7fbab68e27d5f1c94ffb8
+
+COCOAPODS: 0.39.0
