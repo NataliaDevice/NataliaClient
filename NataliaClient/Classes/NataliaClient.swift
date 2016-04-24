@@ -154,39 +154,55 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
     }
     
 //    public func writePinState(newState: PinState, pin:UInt8, characteristic:CBCharacteristic){
-    public func writePinState(led:UInt8, newState: LedState){
-        var pin = ledPins[Int(led)-1]
+    public func toggleLED(led:Int, state: String){
+        if connectedToBLEAndSetModeToOutPut {
+            var pin = ledPins[led-1]
+            var onOrOff = state.lowercaseString
+            var newState:PinState
         
-        print((self, funcName: (#function), logString: "writing to pin: \(pin)"))
+            switch onOrOff {
+            case "on":
+                newState = PinState.High
+            case "off":
+                newState = PinState.Low
+            default:
+                newState = PinState.Low
+            }
         
-        //Set an output pin's state
         
-        var data0:UInt8  //Status
-        var data1:UInt8  //LSB of bitmask
-        var data2:UInt8  //MSB of bitmask
+            print((self, funcName: (#function), logString: "writing to pin: \(pin)"))
         
-        //Status byte == 144 + port#
-        let port:UInt8 = pin / 8
-        data0 = 0x90 + port
+            //Set an output pin's state
         
-        //Data1 == pin0State + 2*pin1State + 4*pin2State + 8*pin3State + 16*pin4State + 32*pin5State
-        let pinIndex:UInt8 = pin - (port*8)
-        var newMask = UInt8(newState.rawValue * Int(powf(2, Float(pinIndex))))
+            var data0:UInt8  //Status
+            var data1:UInt8  //LSB of bitmask
+            var data2:UInt8  //MSB of bitmask
         
-        portMasks[Int(port)] &= ~(1 << pinIndex) //prep the saved mask by zeroing this pin's corresponding bit
-        newMask |= portMasks[Int(port)] //merge with saved port state
-        portMasks[Int(port)] = newMask
-        data1 = newMask<<1; data1 >>= 1  //remove MSB
-        data2 = newMask >> 7 //use data1's MSB as data2's LSB
-        
-        let bytes:[UInt8] = [data0, data1, data2]
-        let newData:NSData = NSData(bytes: bytes, length: 3)
-        //        delegate!.sendData(newData)
-        print("Setting pin to LOW")
-        print(newData)
-        currentPeripheral.writeValue(newData, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithoutResponse)
-        
-        //        print((self, funcName: "setting pin states -->", logString: "[\(binaryforByte(portMasks[0]))] [\(binaryforByte(portMasks[1]))] [\(binaryforByte(portMasks[2]))]"))
+            //Status byte == 144 + port#
+            let port:UInt8 = pin / 8
+            data0 = 0x90 + port
+            
+            //Data1 == pin0State + 2*pin1State + 4*pin2State + 8*pin3State + 16*pin4State + 32*pin5State
+            let pinIndex:UInt8 = pin - (port*8)
+            var newMask = UInt8(newState.rawValue * Int(powf(2, Float(pinIndex))))
+            
+            portMasks[Int(port)] &= ~(1 << pinIndex) //prep the saved mask by zeroing this pin's corresponding bit
+            newMask |= portMasks[Int(port)] //merge with saved port state
+            portMasks[Int(port)] = newMask
+            data1 = newMask<<1; data1 >>= 1  //remove MSB
+            data2 = newMask >> 7 //use data1's MSB as data2's LSB
+            
+            let bytes:[UInt8] = [data0, data1, data2]
+            let newData:NSData = NSData(bytes: bytes, length: 3)
+            //        delegate!.sendData(newData)
+            print("Setting pin to LOW")
+            print(newData)
+            currentPeripheral.writeValue(newData, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithoutResponse)
+            
+            //        print((self, funcName: "setting pin states -->", logString: "[\(binaryforByte(portMasks[0]))] [\(binaryforByte(portMasks[1]))] [\(binaryforByte(portMasks[2]))]"))
+        } else {
+            print("Not connected to device and setup pinmode")
+        }
         
     }
     

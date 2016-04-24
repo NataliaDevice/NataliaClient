@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C5A43A592478DE4EF37C010E'
+               BlueprintIdentifier = 'E3888BE9378B625F6ECBCFD9'
                BlueprintName = 'NataliaClient'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'NataliaClient.framework'>
