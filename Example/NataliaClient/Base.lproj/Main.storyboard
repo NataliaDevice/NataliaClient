@@ -16,11 +16,84 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJG-Ah-53o">
+                                <rect key="frame" x="61" y="112" width="75" height="30"/>
+                                <state key="normal" title="LED 2 On"/>
+                                <connections>
+                                    <action selector="led2On:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yaU-Nu-iWI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJI-wT-uLC">
+                                <rect key="frame" x="61" y="165" width="75" height="30"/>
+                                <state key="normal" title="LED 3 On"/>
+                                <connections>
+                                    <action selector="led3On:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MPr-Aa-Lpy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7E-w2-oLg">
+                                <rect key="frame" x="61" y="213" width="75" height="30"/>
+                                <state key="normal" title="LED 4 On"/>
+                                <connections>
+                                    <action selector="led4On:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pgp-DL-Vb6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5H-fY-ENw">
+                                <rect key="frame" x="61" y="264" width="75" height="30"/>
+                                <state key="normal" title="LED 5 On"/>
+                                <connections>
+                                    <action selector="led5On:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="lL7-Zb-VwW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2P3-Qo-lxY">
+                                <rect key="frame" x="61" y="61" width="75" height="30"/>
+                                <state key="normal" title="LED 1 On"/>
+                                <connections>
+                                    <action selector="led1On:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5E4-f4-YRf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUE-ts-tYc">
+                                <rect key="frame" x="169" y="61" width="67" height="30"/>
+                                <state key="normal" title="LED 1 Off"/>
+                                <connections>
+                                    <action selector="led1Off:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="EI8-N1-yY4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCD-JT-w6a">
+                                <rect key="frame" x="169" y="112" width="67" height="30"/>
+                                <state key="normal" title="LED 2 Off"/>
+                                <connections>
+                                    <action selector="led2Off:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OeC-JW-YJF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1P9-OT-opc">
+                                <rect key="frame" x="169" y="213" width="67" height="30"/>
+                                <state key="normal" title="LED 4 Off"/>
+                                <connections>
+                                    <action selector="led4Off:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="F4R-sn-psp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N61-mK-NZ0">
+                                <rect key="frame" x="169" y="264" width="67" height="30"/>
+                                <state key="normal" title="LED 5 Off"/>
+                                <connections>
+                                    <action selector="led5Off:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="LDZ-lQ-2pS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usm-4W-x9h">
+                                <rect key="frame" x="169" y="165" width="67" height="30"/>
+                                <state key="normal" title="LED 3 Off"/>
+                                <connections>
+                                    <action selector="led3Off:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="era-i0-OA7"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="139" y="232"/>
         </scene>
     </scenes>
 </document>

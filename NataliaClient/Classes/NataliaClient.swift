@@ -168,6 +168,7 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
             default:
                 newState = PinState.Low
             }
+            print(newState)
         
         
             print((self, funcName: (#function), logString: "writing to pin: \(pin)"))
@@ -195,9 +196,9 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
             let bytes:[UInt8] = [data0, data1, data2]
             let newData:NSData = NSData(bytes: bytes, length: 3)
             //        delegate!.sendData(newData)
-            print("Setting pin to LOW")
+            print("Setting pin")
             print(newData)
-            currentPeripheral.writeValue(newData, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithoutResponse)
+            currentPeripheral.writeValue(newData, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithResponse)
             
             //        print((self, funcName: "setting pin states -->", logString: "[\(binaryforByte(portMasks[0]))] [\(binaryforByte(portMasks[1]))] [\(binaryforByte(portMasks[2]))]"))
         } else {
