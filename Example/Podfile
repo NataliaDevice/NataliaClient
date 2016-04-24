@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'NataliaClient_Example', :exclusive => true do
+  pod 'NataliaClient', :path => '../'
+end
+
+target 'NataliaClient_Tests', :exclusive => true do
+  pod 'NataliaClient', :path => '../'
+
+  
+end
