@@ -207,6 +207,35 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
         
     }
     
+    //
+    private var lastSentAnalogValueTime : NSTimeInterval = 0
+    func setPMWValue(led: Int, value: Int) -> Bool {
+        var pin = ledPins[led-1]
+        // Limit the amount of messages sent over Uart
+        let currentTime = CACurrentMediaTime()
+        guard currentTime - lastSentAnalogValueTime >= 0.05 else {
+//            DLog("Won't send: Too many slider messages")
+            print("Won't send: Too many slider messages")
+            return false
+        }
+        lastSentAnalogValueTime = currentTime
+        
+        // Store
+//        pin.analogValue = value
+        
+        // Send
+        let data0 = 0xe0 + UInt8(pin)
+        let data1 = UInt8(value & 0x7f)         //only 7 bottom bits
+        let data2 = UInt8(value >> 7)           //top bit in second byte
+        
+        let bytes:[UInt8] = [data0, data1, data2]
+        let data = NSData(bytes: bytes, length: bytes.count)
+        currentPeripheral.writeValue(data, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithResponse)
+        
+        return true
+    }
+    //
+    
     public func peripheral(peripheral: CBPeripheral, didWriteValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         print("----------")
         print(characteristic)
