@@ -209,7 +209,7 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
     
     //
     private var lastSentAnalogValueTime : NSTimeInterval = 0
-    func setPMWValue(led: Int, value: Int) -> Bool {
+    public func setPMWValue(led: Int, value: Int) -> Bool {
         var pin = ledPins[led-1]
         // Limit the amount of messages sent over Uart
         let currentTime = CACurrentMediaTime()
