@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func led3On(sender: UIButton) {
-         nataliaClient.toggleLED(3, state: "on")
+         nataliaClient.setPMWValue(3, value: 20)
     }
     
     @IBAction func led4On(sender: UIButton) {
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func led3Off(sender: UIButton) {
-        nataliaClient.toggleLED(3, state: "off")
+        nataliaClient.setPMWValue(3, value: 0)
     }
 
     

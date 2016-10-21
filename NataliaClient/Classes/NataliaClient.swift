@@ -46,13 +46,14 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
         case On
     }
     
-    public enum PinMode:Int{
-        case Unknown = -1
-        case Input
-        case Output
-        case Analog
-        case PWM
-        case Servo
+    public enum PinMode: UInt8{
+        case Unknown = 255
+        case Input = 0          // Don't chage the values (these are the bytes defined by firmata spec)
+        case Output = 1
+        
+        case Analog = 2
+        case PWM = 3
+        case Servo = 4
     }
     
     let ledPins: [UInt8] = [2, 3, 5, 6, 9] //17=A0 18=A1
@@ -118,9 +119,9 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 print(c)
                 //set pin modes to OUTPUT
                 for pin in (ledPins as [UInt8]) {
-                    print("Setting pin to OUTPUT: ")
+                    print("Setting pin to PWM: ")
                     print(pin)
-                    writePinMode(PinMode.Output, pin:pin, characteristic:c)
+                    writePinMode(PinMode.PWM, pin:pin, characteristic:c)
                 }
                 //                for pin in (ledPins as [UInt8]) {
                 //                    print("Setting pin to OUTPUT: ")
@@ -210,29 +211,34 @@ public class NataliaClient : NSObject, CBCentralManagerDelegate, CBPeripheralDel
     //
     private var lastSentAnalogValueTime : NSTimeInterval = 0
     public func setPMWValue(led: Int, value: Int) -> Bool {
-        var pin = ledPins[led-1]
-        // Limit the amount of messages sent over Uart
-        let currentTime = CACurrentMediaTime()
-        guard currentTime - lastSentAnalogValueTime >= 0.05 else {
-//            DLog("Won't send: Too many slider messages")
-            print("Won't send: Too many slider messages")
+        if connectedToBLEAndSetModeToOutPut {
+            var pin = ledPins[led-1]
+            // Limit the amount of messages sent over Uart
+            let currentTime = CACurrentMediaTime()
+            guard currentTime - lastSentAnalogValueTime >= 0.05 else {
+    //            DLog("Won't send: Too many slider messages")
+                print("Won't send: Too many slider messages")
+                return false
+            }
+            lastSentAnalogValueTime = currentTime
+            
+            // Store
+    //        pin.analogValue = value
+            
+            // Send
+            let data0 = 0xe0 + UInt8(pin)
+            let data1 = UInt8(value & 0x7f)         //only 7 bottom bits
+            let data2 = UInt8(value >> 7)           //top bit in second byte
+            
+            let bytes:[UInt8] = [data0, data1, data2]
+            let data = NSData(bytes: bytes, length: bytes.count)
+            currentPeripheral.writeValue(data, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithResponse)
+            
+            return true
+        } else {
+            print("Not connected to device and setup pinmode")
             return false
         }
-        lastSentAnalogValueTime = currentTime
-        
-        // Store
-//        pin.analogValue = value
-        
-        // Send
-        let data0 = 0xe0 + UInt8(pin)
-        let data1 = UInt8(value & 0x7f)         //only 7 bottom bits
-        let data2 = UInt8(value >> 7)           //top bit in second byte
-        
-        let bytes:[UInt8] = [data0, data1, data2]
-        let data = NSData(bytes: bytes, length: bytes.count)
-        currentPeripheral.writeValue(data, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithResponse)
-        
-        return true
     }
     //
     
